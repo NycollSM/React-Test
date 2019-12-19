@@ -1,53 +1,76 @@
-import React, {Component} from 'react';
-import Tasks from './Tasks';
+import React, { Component } from 'react';
+import Modal from './modal';
+import TasksList from './ItemsList';
 
-class Form  extends Component {
+class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Name: '', 
-      Description: '',
-      Data: {}
+      completed: false,
+      description: '',
+      editTask: {},
+      id: 0,
+      tasks: [],
+      task:'',
+      showModal:false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    localStorage.setItem('myValueInLocalStorage', this.handleChange);
-    console.log('Data:', this.state.Data);
-    console.log('Name:', this.state.Name);
-    console.log('Description:', this.state.Description);
-    alert('Tarea creada');
+    const eachTask = this.state.tasks;
+    const newItem = {
+      id: this.state.id ++,
+      name: '',
+      description: '',
+      completed: false,
+    }
+    newItem.name = this.state.task;
+    newItem.description = this.state.description;
+    eachTask.push(newItem);
+    this.setState({
+      tasks: eachTask,
+      showModal: true,
+    });
+    console.log('tasks', this.state.tasks);
   }
+  handleDelete (event) {
+    const newItemsD = this.state.tasks.filter((item) => {
+      return item != event;
+    })
 
-  handleChange(event) {
-    this.setState({Name: event.target.value});
-    this.setState({Description: event.target.value});
-    this.setState({Data: [this.state.Description, this.state.Name]})
   }
-
-  render () {
-    return(
+  setShowModal () {
+    this.setState({showModal: '1'})
+  }
+  
+  render() {
+    return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Name of the task
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
-          <label htmlFor="">
-            Description
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
-          <button type="submit" value='submit'>button</button>
+          <input type="text"  name="task" onChange={this.handleChange} placeholder="Add a new Task"/>
+          <input type="text"  name="description" onChange={this.handleChange} placeholder="Add the description"/>
+          <button type="submit" value="submit">Add Task</button> 
         </form>
-        {/*
-        {
-          this.state.Data.map(items => 
-          <p>{items.Name}</p>
-          )
-        }*/}
+      {this.state.showModal && 
+        <Modal
+        show={this.state.showModal}
+        hideModal={() => this.setState({showModal: false}) }
+        />
+      }
+        <TasksList 
+          tasks={this.state.tasks} />
       </div>
     )
   }

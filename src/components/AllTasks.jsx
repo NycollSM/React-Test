@@ -1,10 +1,10 @@
 import React from 'react';
 import Tasks from '../pages/AllTasks'
-
 const AllTasks = () => {
   return (
-    <Tasks/>
+    <div>
+      <Tasks/>
+    </div>
   )
 }
-
 export default AllTasks;

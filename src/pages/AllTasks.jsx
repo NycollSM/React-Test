@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import Tasks from '../components/Tasks';
+import React from 'react';
+import TaskList from '../components/AllTasks';
 
 const AllTasks = () => {
   return (
     <div>Completed Tasks
-     <Tasks/>
+      <TaskList />
     </div>
       )
 }

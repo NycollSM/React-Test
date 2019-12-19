@@ -16,7 +16,7 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
+   // this.handleEdit = this.handleEdit.bind(this);
   }
 
   handleChange(event) {
@@ -44,23 +44,8 @@ class Form extends Component {
       tasks: eachTask,
       showModal: true,
     });
-    //console.log('tasks', this.state.tasks);
+    
     localStorage.setItem('data', JSON.stringify(this.state.tasks) );
-  }
-
-  handleEdit (task, description, id) {
-    console.log('edit');
-    const items = this.state.tasks;
-    items.map(item => {
-      if(item.id === id) {
-        item.name = task;
-        item.description = description;
-      }
-    })
-    this.setState.tasks({
-      tasks: items
-    })
-
   }
   handleDelete (id) {
     let newItemsD = this.state.tasks;
@@ -88,7 +73,6 @@ class Form extends Component {
         <TasksList 
           tasks={this.state.tasks} 
           handleDelete={this.handleDelete}
-          handleEdit={this.handleEdit}
         />
       </div>
     )

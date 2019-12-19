@@ -26,7 +26,9 @@ class FormPage extends Component {
   }
   render () {
     return (
-      <Form />
+      <div>
+        <Form />
+      </div>
     )
   }
 }

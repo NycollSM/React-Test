@@ -9,8 +9,14 @@ class TasksList extends Component {
       items: this.props.tasks,
     }
     this.completedTask = this.completedTask.bind(this);
-   
+    this.handleEdit = this.handleEdit.bind(this);
   }
+
+  handleEdit (element) {
+    //const[title, description] = element;
+    console.log('sdfghjkkjhgfdghjkhg');
+  }
+
   completedTask (item) {
     if (item.completed === false) {
       item.completed = true
@@ -20,7 +26,9 @@ class TasksList extends Component {
     localStorage.setItem('data2', JSON.stringify(this.state.items));
     console.log(item)
   }
+
   render() {
+
     return (
       <div>
         {this.state.items.map(item => 
@@ -39,7 +47,7 @@ class TasksList extends Component {
               </p>
             <p>Description: {item.description}</p>
             <button onClick={() => this.props.handleDelete(item.id)}>Delete</button>
-            <button onClick={this.props.handleEdit}>Edit</button>
+            <button onClick={() => this.handleEdit(item)}>Edit</button>
             <button onClick={() => this.completedTask(item)}>completed</button>
         </div>
         )}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TaskList from '../components/AllTasks';
+import TaskList from '../components/ItemsList';
 
 class AllTasks  extends Component {
   constructor (props){
@@ -10,36 +10,31 @@ class AllTasks  extends Component {
     } 
     this.FilteringData = this.FilteringData.bind(this); 
   }
+
   componentDidMount(){
     const newData = []
-    const dataLS = JSON.parse(localStorage.getItem('data')) || [] ;
+    const dataLS = JSON.parse(localStorage.getItem('data2')) || [] ;
     dataLS.map(item => {
       newData.push(item)
     })
-    
     this.setState({
       data: newData,
     })
-    console.log(this.state.data)
-    
   }
+
   FilteringData () {
     const filtroIG = this.state.data.filter(i => i.completed == true )
-    console.log(filtroIG);
     filtroIG.map(item => {
       this.state.completedTask.push(item)
     })
-    console.log('wenas',this.state.completedTask);
+    console.log(this.state.completedTask);
   }
 
-
-
-  
   render() {
    return (
     <div>Completed Tasks
       <TaskList 
-      tasks={this.setState.data}
+      tasks={this.state.completedTask}
       FilteringData={this.FilteringData}
       />
     </div>

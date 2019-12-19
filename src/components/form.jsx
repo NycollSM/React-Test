@@ -16,6 +16,7 @@ class Form extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleChange(event) {
@@ -45,12 +46,14 @@ class Form extends Component {
     });
     console.log('tasks', this.state.tasks);
   }
-  handleDelete (event) {
-    const newItemsD = this.state.tasks.filter((item) => {
-      return item != event;
-    })
-
+  handleDelete (id) {
+    console.log('id',id);
+    let newItemsD = this.state.tasks;
+    let item = newItemsD.findIndex(item => item.id === id);
+    newItemsD.splice(item, 1)
+    this.setState({tasks: newItemsD});
   }
+
   setShowModal () {
     this.setState({showModal: '1'})
   }
@@ -70,7 +73,7 @@ class Form extends Component {
         />
       }
         <TasksList 
-          tasks={this.state.tasks} />
+          tasks={this.state.tasks} handleDelete={this.handleDelete}/>
       </div>
     )
   }

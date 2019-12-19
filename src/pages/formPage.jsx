@@ -18,14 +18,12 @@ class FormPage extends Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log('Tasks:', this.setState.task);
-    localStorage.setItem('data', this.handleChange);
-    console.log()
+    localStorage.setItem('data', JSON.stringify(this.state.tasks) );
   }
   handleChange (e) {
     this.setState({task: e.target.value})
     this.setState({description: e.target.value}) 
-   console.log(this.state.task);
-
+    console.log(this.state.task);
   }
   render () {
     return (

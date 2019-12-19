@@ -6,7 +6,7 @@ class TasksList extends Component {
     this.state= {
       items: this.props.tasks,
     }
-    this.handleDelete = this.handleDelete.bind(this);
+   
   }
   handleEdit () {
     console.log('edit')
@@ -14,9 +14,11 @@ class TasksList extends Component {
   handleCompleted () {
     console.log('complete')
   }
-  handleDelete (eventDelete) {
-    let newItemsD = this.state.items.filter((item) => {
-      return item = eventDelete;
+  handleDelete (itemDeleted) {
+    const newItemsD = this.state.items.filter(item => 
+    item !== itemDeleted); 
+    this.setState({
+      tasks: newItemsD
     });
   }
   render() {
@@ -29,7 +31,7 @@ class TasksList extends Component {
         <div key={item.id}>
             <p>{item.name}</p>
             <p>{item.description}</p>
-            <button onClick={this.handleDelete}>Delete</button>
+            <button onClick={() => this.props.handleDelete(item.id)}>Delete</button>
             <button onClick={this.handleEdit}>Edit</button>
             <button onClick={this.handleCompleted}>completed</button>
         </div>

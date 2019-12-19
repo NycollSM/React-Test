@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import '../App.css';
+
 
 class TasksList extends Component {
   constructor (props) {
@@ -6,34 +8,39 @@ class TasksList extends Component {
     this.state= {
       items: this.props.tasks,
     }
+    this.completedTask = this.completedTask.bind(this);
    
   }
-  handleEdit () {
-    console.log('edit')
-  }
-  handleCompleted () {
-    console.log('complete')
-  }
-  handleDelete (itemDeleted) {
-    const newItemsD = this.state.items.filter(item => 
-    item !== itemDeleted); 
-    this.setState({
-      tasks: newItemsD
-    });
+  completedTask (item) {
+    if (item.completed === false) {
+      item.completed = true
+    } else {
+      item.completed = false
+    }
+    localStorage.setItem('data2', JSON.stringify(this.state.items));
+    console.log(item)
   }
   render() {
     return (
       <div>
-        {
-          console.log('this state',this.state.items)
-        }
         {this.state.items.map(item => 
-        <div key={item.id}>
-            <p>{item.name}</p>
-            <p>{item.description}</p>
+        <div key={item.id} className='Task'>
+            <p>Title: 
+              {item.name}
+              {/* Editar task
+                <input type="text" 
+                id={item.key} 
+                value={item.name}
+                onChange = {
+                  (e) => {
+                    this.props.handleEdit(e.target.value, item.key)
+                  }
+                }/>*/}
+              </p>
+            <p>Description: {item.description}</p>
             <button onClick={() => this.props.handleDelete(item.id)}>Delete</button>
-            <button onClick={this.handleEdit}>Edit</button>
-            <button onClick={this.handleCompleted}>completed</button>
+            <button onClick={this.props.handleEdit}>Edit</button>
+            <button onClick={() => this.completedTask(item)}>completed</button>
         </div>
         )}
       </div>

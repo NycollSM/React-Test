@@ -6,7 +6,6 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      completed: false,
       description: '',
       editTask: {},
       id: 0,
@@ -17,6 +16,7 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   handleChange(event) {
@@ -44,20 +44,33 @@ class Form extends Component {
       tasks: eachTask,
       showModal: true,
     });
-    console.log('tasks', this.state.tasks);
+    //console.log('tasks', this.state.tasks);
+    localStorage.setItem('data', JSON.stringify(this.state.tasks) );
+  }
+
+  handleEdit (task, description, id) {
+    console.log('edit');
+    const items = this.state.tasks;
+    items.map(item => {
+      if(item.id === id) {
+        item.name = task;
+        item.description = description;
+      }
+    })
+    this.setState.tasks({
+      tasks: items
+    })
+
   }
   handleDelete (id) {
-    console.log('id',id);
     let newItemsD = this.state.tasks;
     let item = newItemsD.findIndex(item => item.id === id);
     newItemsD.splice(item, 1)
     this.setState({tasks: newItemsD});
   }
-
   setShowModal () {
     this.setState({showModal: '1'})
   }
-  
   render() {
     return (
       <div>
@@ -73,7 +86,10 @@ class Form extends Component {
         />
       }
         <TasksList 
-          tasks={this.state.tasks} handleDelete={this.handleDelete}/>
+          tasks={this.state.tasks} 
+          handleDelete={this.handleDelete}
+          handleEdit={this.handleEdit}
+        />
       </div>
     )
   }

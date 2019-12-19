@@ -5,7 +5,7 @@ class FormPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      completed: false,
+      completed: [],
       description: '',
       editTask: {},
       id: 0,
@@ -17,9 +17,8 @@ class FormPage extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    console.log('Tasks:', this.setState.task);
-    localStorage.setItem('data', JSON.stringify(this.state.tasks) );
   }
+
   handleChange (e) {
     this.setState({task: e.target.value})
     this.setState({description: e.target.value}) 

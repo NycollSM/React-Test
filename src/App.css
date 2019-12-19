@@ -24,15 +24,14 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+a{
+  margin: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Task{
+  padding: 20px;
+  border: 0.5px solid black;
+  width: 20%;
+  display: inline-block;
+  margin: 10px;
 }
